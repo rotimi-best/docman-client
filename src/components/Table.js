@@ -12,8 +12,8 @@ import formatDate from '../helpers/formatDate';
 
 const useStyles = makeStyles({
   tableContainer: {
-    maxHeight: 550,
-    minHeight: 550,
+    maxHeight: 400,
+    minHeight: 400,
     margin: '30px !important'
   }
 });
