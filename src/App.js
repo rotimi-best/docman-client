@@ -1,25 +1,65 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/storage';
+import routes from './constants/routes';
+
+// Components
+import Header from './components/Header';
+import Auth from './components/Auth';
+import Groups from './components/Groups';
+import Group from './components/Groups/Group';
+import Profile from './components/Profile';
+import NewDocument from './components/Document/New';
+import PrivateRoute from './container/PrivateRoute';
+
+import config from './config';
+
+// Initialize Firebase
+firebase.initializeApp(config.firebaseConfig);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact path={routes.AUTH}>
+          <Auth />
+        </Route>
+        <Route exact path={routes.PROFILE}>
+          <PrivateRoute
+            component={<Profile />}
+          />
+        </Route>
+        <Route exact path={routes.GROUPS}>
+          <PrivateRoute
+            component={<Groups />}
+          />
+        </Route>
+        <Route
+          exact
+          path={routes.GROUP}
+          render={(props) =>(
+            <PrivateRoute
+              component={<Group {...props} />}
+            />
+          )}
+        />
+        <Route
+          exact
+          path={routes.DOCUMENT_NEW}
+          render={(props) =>(
+            <PrivateRoute
+              component={<NewDocument {...props} />}
+            />
+          )}
+        />
+      </Switch>
+    </Router>
   );
 }
 
