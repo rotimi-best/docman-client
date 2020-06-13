@@ -58,6 +58,12 @@ function App() {
             />
           )}
         />
+
+        <Route exact path="/">
+          <PrivateRoute
+            component={<Profile />}
+          />
+        </Route>
       </Switch>
     </Router>
   );
