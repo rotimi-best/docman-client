@@ -1,4 +1,4 @@
-#docman-client
+# docman-client
 
 1. Create a file called `.env` in the root folder
 2. Copy the content of `.env.example` and paste in the `.env` file
